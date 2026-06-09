@@ -4,16 +4,16 @@ public static class AppInitialisation
 {
     private const string ViewModel = "ViewModel";
     private const string Page = "Page";
-    
+
     public static MauiAppBuilder UseAppInitialiser(this MauiAppBuilder builder)
     {
         builder.UsePrism(ConfigurePrism);
         return builder;
     }
-    
+
     private static void ConfigurePrism(PrismAppBuilder builder)
     {
-        builder.CreateWindow($"{Routes.NavigationPage}/{Routes.MainPage}");
+        builder.CreateWindow($"{Routes.NavigationPage}/{Routes.DashboardPage}");
         builder.RegisterTypes(RegisterTypes);
     }
 
@@ -31,22 +31,15 @@ public static class AppInitialisation
 
         foreach (var page in pageTypes)
         {
-            try
+            var vmName = page.Name + ViewModel;
+            var vmType = GetTypes(x => x.Equals(vmName)).FirstOrDefault();
+            if (vmType is not null)
             {
-                var vmName = page.Name + ViewModel;
-                var vmType = GetTypes(x => x.Equals(vmName)).FirstOrDefault();
-                if (vmType != null)
-                {
-                    // Register the page for navigation with its ViewModel
-                    // Use the RegisterForNavigation(Type view, Type viewModel) overload if available
-                    serviceCollection.RegisterForNavigation(page, vmType);
-                }
+                // Register the page for navigation with its ViewModel
+                // Use the RegisterForNavigation(Type view, Type viewModel) overload if available
+                serviceCollection.RegisterForNavigation(page, vmType);
             }
-            catch (Exception ex)
-            {
-                
-            }
-    }
+        }
     }
 
     private static void RegisterServices(IContainerRegistry serviceCollection)
@@ -63,7 +56,9 @@ public static class AppInitialisation
             {
                 // register for each implemented interface
                 foreach (var iface in interfaces)
+                {
                     serviceCollection.RegisterSingleton(iface, type);
+                }
             }
             else
             {
@@ -72,9 +67,10 @@ public static class AppInitialisation
             }
         }
     }
-    
+
     private static List<Type> GetTypes(Func<string, bool> nameCheck)
     {
-        return typeof(AppInitialisation).Assembly.GetTypes().Where(type => type is { IsClass: true, IsAbstract: false } && nameCheck.Invoke(type.Name)).ToList();
+        return typeof(AppInitialisation).Assembly.GetTypes()
+            .Where(type => type is { IsClass: true, IsAbstract: false } && nameCheck.Invoke(type.Name)).ToList();
     }
 }
