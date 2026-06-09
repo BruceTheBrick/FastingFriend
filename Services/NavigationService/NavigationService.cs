@@ -25,7 +25,7 @@ public class NavigationService : INavigationService
 
     public Task<INavigationResult> NavigateAsync(string name, INavigationParameters parameters, bool useModalNavigation, bool animated)
     {
-        return _navigationService.NavigateAsync(name, parameters, useModalNavigation, animated);
+        return _navigationService.NavigateAsync(name, parameters);
     }
 
     public Task<INavigationResult> GoBackAsync()
@@ -45,6 +45,6 @@ public class NavigationService : INavigationService
 
     public Task<INavigationResult> GoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated)
     {
-        return _navigationService.GoBackAsync(parameters, useModalNavigation, animated);
+        return _navigationService.GoBackAsync(parameters);
     }
 }
