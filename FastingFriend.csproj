@@ -57,8 +57,4 @@
 		<PackageReference Include="Prism.DryIoc.Maui" Version="9.0.537" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\TimeslotService\Models\" />
-	</ItemGroup>
-
 </Project>
