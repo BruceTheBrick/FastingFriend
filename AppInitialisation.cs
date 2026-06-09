@@ -44,6 +44,8 @@ public static class AppInitialisation
 
     private static void RegisterServices(IContainerRegistry serviceCollection)
     {
+        serviceCollection.RegisterSingleton<Prism.Navigation.INavigationService, Prism.Navigation.PageNavigationService>();
+        
         // Automatically register all concrete types ending with 'Service' defined in this assembly only
         var assembly = typeof(AppInitialisation).Assembly;
         var serviceTypes = assembly

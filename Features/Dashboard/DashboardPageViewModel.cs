@@ -1,9 +1,24 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using FastingFriend.Services.BaseService;
+
 namespace FastingFriend.Features;
 
-public class DashboardPageViewModel : BasePageViewModel
+public partial class DashboardPageViewModel : BasePageViewModel
 {
-    public DashboardPageViewModel(INavigationService navigationService) 
-        : base(navigationService)
+    private readonly ITimeslotService _timeslotService;
+    public DashboardPageViewModel(
+        ITimeslotService timeslotService, 
+        IBaseService baseService) 
+        : base(baseService)
     {
+        _timeslotService = timeslotService;
+    }
+
+    [ObservableProperty] private List<Timeslot> _timeslots;
+
+    public override void Initialize(INavigationParameters parameters)
+    {
+        base.Initialize(parameters);    
+        Timeslots = _timeslotService.GetAllTimeslots().ToList();
     }
 }
