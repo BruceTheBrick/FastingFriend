@@ -9,41 +9,61 @@ public class NavigationService : INavigationService
     }
 
     public Task<INavigationResult> NavigateAsync(string name)
-        => NavigateAsync(name, null, false, true);
+    {
+        return NavigateAsync(name, null, false, true);
+    }
 
     public Task<INavigationResult> NavigateAsync(string name, INavigationParameters parameters)
-        => NavigateAsync(name, parameters, false, true);
+    {
+        return NavigateAsync(name, parameters, false, true);
+    }
 
     public Task<INavigationResult> NavigateAsync(string name, bool useModalNavigation)
-        => NavigateAsync(name, null, useModalNavigation, true);
+    {
+        return NavigateAsync(name, null, useModalNavigation, true);
+    }
 
     public Task<INavigationResult> NavigateAsync(string name, INavigationParameters parameters, bool useModalNavigation)
-        => NavigateAsync(name, parameters, useModalNavigation, true);
+    {
+        return NavigateAsync(name, parameters, useModalNavigation, true);
+    }
 
     public Task<INavigationResult> NavigateAsync(string name, bool useModalNavigation, bool animated)
-        => NavigateAsync(name, null, useModalNavigation, animated);
+    {
+        return NavigateAsync(name, null, useModalNavigation, animated);
+    }
 
-    public Task<INavigationResult> NavigateAsync(string name, INavigationParameters parameters, bool useModalNavigation, bool animated)
+    public Task<INavigationResult> NavigateAsync(string name, INavigationParameters? parameters, bool useModalNavigation, bool animated)
     {
         return _navigationService.NavigateAsync(name, parameters);
     }
 
     public Task<INavigationResult> GoBackAsync()
-        => GoBackAsync(null, false, true);
+    {
+        return GoBackAsync(null, false, true);
+    }
 
     public Task<INavigationResult> GoBackAsync(INavigationParameters parameters)
-        => GoBackAsync(parameters, false, true);
+    {
+        return GoBackAsync(parameters, false, true);
+    }
 
     public Task<INavigationResult> GoBackAsync(bool useModalNavigation)
-        => GoBackAsync(null, useModalNavigation, true);
+    {
+        return GoBackAsync(null, useModalNavigation, true);
+    }
 
     public Task<INavigationResult> GoBackAsync(INavigationParameters parameters, bool useModalNavigation)
-        => GoBackAsync(parameters, useModalNavigation, true);
+    {
+        return GoBackAsync(parameters, useModalNavigation, true);
+    }
 
     public Task<INavigationResult> GoBackAsync(bool useModalNavigation, bool animated)
-        => GoBackAsync(null, useModalNavigation, animated);
+    {
+        return GoBackAsync(null, useModalNavigation, animated);
+    }
 
-    public Task<INavigationResult> GoBackAsync(INavigationParameters parameters, bool useModalNavigation, bool animated)
+    public Task<INavigationResult> GoBackAsync(INavigationParameters? parameters, bool useModalNavigation, bool animated)
     {
         return _navigationService.GoBackAsync(parameters);
     }

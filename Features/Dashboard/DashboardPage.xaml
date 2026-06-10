@@ -2,11 +2,25 @@
 
 <features:BasePage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:DataType="features:DashboardPageViewModel"
              xmlns:features="clr-namespace:FastingFriend.Features"
+             xmlns:services="clr-namespace:FastingFriend.Services"
              x:Class="FastingFriend.Features.DashboardPage">
     <Grid>
-        <VerticalStackLayout>
-            <Label Text="This is the dashboard!"/>
-        </VerticalStackLayout>
+        <CollectionView
+            ItemsSource="{Binding Timeslots}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="services:Timeslot">
+                    <Grid ColumnDefinitions="*, *" RowDefinitions="*, *">
+                        <Label Grid.Column="0" Grid.Row="0" Text="Start Time"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding StartTime.TimeOfDay}"/>
+                        
+                        <Label Grid.Column="1" Grid.Row="0" Text="End Time"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding EndTime.TimeOfDay}"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button  VerticalOptions="End" HorizontalOptions="End" Text="Add new timeslot" Command="{Binding AddNewTimeslotCommand}"/>
     </Grid>
 </features:BasePage>
